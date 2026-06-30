@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOSMEX | Catálogo QR</title>
+  <style>
+    :root{
+      --bg:#f5f7fb;
+      --panel:#ffffff;
+      --line:#d9e1ec;
+      --line-soft:#e8edf5;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --navy:#1f497d;
+      --blue:#3b82f6;
+      --shadow:0 10px 24px rgba(15, 23, 42, .06);
+
+      --ingenieria:#8e44ad;
+      --calidad:#22c55e;
+      --planeado:#3b82f6;
+      --mantenimiento:#f59e0b;
+      --produccion:#ef4444;
+      --sistema:#64748b;
+      --embarques:#14b8a6;
+      --logistica:#94a3b8;
+      --ventas:#0ea5e9;
+
+      --badge-red:#b02b45;
+      --mark-bg:#fff0a8;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    .page{
+      width:min(1400px, calc(100% - 28px));
+      margin:14px auto 24px;
+    }
+
+    .topbar{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:22px;
+      box-shadow:var(--shadow);
+      padding:14px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      min-width:0;
+    }
+
+    .logo-box{
+      width:58px;
+      height:58px;
+      border-radius:14px;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid var(--line-soft);
+      overflow:hidden;
+      flex:0 0 58px;
+    }
+
+    .logo-box img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
+
+    .brand-text{min-width:0}
+
+    .title{
+      margin:0;
+      font-size:20px;
+      font-weight:900;
+      color:#1f2937;
+      line-height:1.15;
+    }
+
+    .subtitle{
+      margin-top:3px;
+      color:var(--muted);
+      font-size:14px;
+      font-weight:600;
+    }
+
+    .clock{
+      flex:0 0 auto;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:10px 16px;
+      font-size:30px;
+      font-weight:900;
+      color:var(--navy);
+      letter-spacing:.5px;
+      min-width:165px;
+      text-align:center;
+    }
+
+    .toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+      margin-bottom:12px;
+    }
+
+    .search-wrap{
+      flex:1 1 420px;
+      max-width:520px;
+      position:relative;
+    }
+
+    .search-box{
+      position:relative;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      height:54px;
+      display:flex;
+      align-items:center;
+      padding:0 14px 0 16px;
+      gap:10px;
+    }
+
+    .search-icon{
+      font-size:22px;
+      color:#4b5563;
+      flex:0 0 auto;
+    }
+
+    .search-input{
+      border:none;
+      outline:none;
+      background:transparent;
+      width:100%;
+      font-size:16px;
+      font-weight:700;
+      color:#334155;
+    }
+
+    .search-input::placeholder{
+      color:#8a94a6;
+      font-weight:600;
+    }
+
+    .clear-btn{
+      border:1px solid #cfd8e5;
+      background:#f8fafc;
+      color:#64748b;
+      border-radius:999px;
+      padding:6px 12px;
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+
+    .clear-btn:hover{background:#eef3f9}
+
+    .filters{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .filter-btn{
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:#1f2937;
+      border-radius:999px;
+      padding:10px 16px;
+      font-size:14px;
+      font-weight:800;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      box-shadow:var(--shadow);
+    }
+
+    .filter-btn.active{
+      border-color:#9bb7e8;
+      background:#f8fbff;
+    }
+
+    .dot{
+      width:11px;
+      height:11px;
+      border-radius:50%;
+      display:inline-block;
+      flex:0 0 11px;
+    }
+
+    .dot.all{background:#94a3b8}
+    .dot.ingenieria{background:var(--ingenieria)}
+    .dot.calidad{background:var(--calidad)}
+    .dot.planeado{background:var(--planeado)}
+    .dot.mantenimiento{background:var(--mantenimiento)}
+    .dot.produccion{background:var(--produccion)}
+    .dot.sistema{background:var(--sistema)}
+    .dot.embarques{background:var(--embarques)}
+    .dot.logistica{background:var(--logistica)}
+    .dot.ventas{background:var(--ventas)}
+
+    .status-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin:8px 0 14px;
+      color:#64748b;
+      font-size:15px;
+      font-weight:700;
+    }
+
+    .catalog{
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(285px, 1fr));
+      gap:18px;
+    }
+
+    .card{
+      background:var(--panel);
+      border:1px solid #dfe6f0;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:.18s ease;
+      border-left:6px solid var(--planeado);
+    }
+
+    .card:hover{
+      transform:translateY(-3px);
+      box-shadow:0 16px 32px rgba(15, 23, 42, .10);
+    }
+
+    .card.favorite{
+      border-top:3px solid #f59e0b;
+    }
+
+    .card-inner{
+      padding:14px 14px 12px;
+      position:relative;
+    }
+
+    .favorite-btn{
+      position:absolute;
+      top:10px;
+      right:10px;
+      z-index:2;
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      border:1px solid #cfd8e5;
+      background:#fff;
+      color:#94a3b8;
+      font-size:21px;
+      font-weight:900;
+      line-height:1;
+      cursor:pointer;
+      box-shadow:0 6px 16px rgba(15, 23, 42, .10);
+    }
+
+    .favorite-btn:hover{
+      background:#fff7ed;
+      color:#f59e0b;
+      border-color:#f59e0b;
+    }
+
+    .favorite-btn.active{
+      background:#fff7ed;
+      color:#f59e0b;
+      border-color:#f59e0b;
+    }
+
+
+    .qr-head{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-bottom:10px;
+    }
+
+    .qr-title-badge{
+      min-height:58px;
+      background:var(--badge-red);
+      color:#fff;
+      border-radius:14px;
+      padding:10px 18px;
+      font-size:16px;
+      font-weight:900;
+      text-align:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      line-height:1.12;
+      width:min(100%, 220px);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);
+      word-break:normal;
+      overflow-wrap:break-word;
+      hyphens:none;
+    }
+
+    .qr-title-badge mark{
+      background:transparent;
+      color:inherit;
+      padding:0;
+      border-radius:0;
+    }
+
+    .qr-box{
+      width:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:6px 8px 14px;
+      border-bottom:1px solid #d8e3f3;
+      min-height:250px;
+    }
+
+    .qr-box img{
+      width:185px;
+      height:185px;
+      object-fit:contain;
+      display:block;
+      background:#fff;
+    }
+
+    .meta{
+      padding:14px 14px 16px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:9px;
+      border:1px solid #d4dce8;
+      background:#f8fafc;
+      color:#334155;
+      border-radius:999px;
+      padding:8px 12px;
+      font-size:13px;
+      font-weight:800;
+      margin-bottom:12px;
+    }
+
+    .card-title{
+      margin:0 0 6px;
+      font-size:18px;
+      font-weight:900;
+      color:#111827;
+      line-height:1.2;
+      min-height:44px;
+      word-break:normal;
+      overflow-wrap:break-word;
+    }
+
+    .card-sub{
+      color:#64748b;
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .img-path{
+      margin-top:8px;
+      color:#475569;
+      background:#f8fafc;
+      border:1px solid #e2e8f0;
+      border-radius:10px;
+      padding:7px 9px;
+      font-size:12px;
+      font-weight:800;
+      font-family:Consolas, 'Courier New', monospace;
+      word-break:break-word;
+    }
+
+    .empty{
+      display:none;
+      background:var(--panel);
+      border:1px dashed #cad5e3;
+      border-radius:18px;
+      padding:34px 18px;
+      text-align:center;
+      color:#64748b;
+      font-size:18px;
+      font-weight:800;
+      box-shadow:var(--shadow);
+    }
+
+    .match mark,
+    .status-row mark{
+      background:var(--mark-bg);
+      color:#111827;
+      border-radius:4px;
+      padding:0 .12em;
+    }
+
+    .card.area-ingenieria{border-left-color:var(--ingenieria)}
+    .card.area-calidad{border-left-color:var(--calidad)}
+    .card.area-planeado{border-left-color:var(--planeado)}
+    .card.area-mantenimiento{border-left-color:var(--mantenimiento)}
+    .card.area-produccion{border-left-color:var(--produccion)}
+    .card.area-sistema{border-left-color:var(--sistema)}
+    .card.area-embarques{border-left-color:var(--embarques)}
+    .card.area-logistica{border-left-color:var(--logistica)}
+    .card.area-ventas{border-left-color:var(--ventas)}
+
+    @media (max-width:900px){
+      .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .clock{
+        width:100%;
+      }
+      .toolbar{
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .search-wrap{
+        max-width:none;
+      }
+      .filters{
+        width:100%;
+      }
+    }
+
+    @media (max-width:640px){
+      .page{
+        width:min(100% - 12px, 100%);
+        margin:6px auto 16px;
+      }
+      .topbar{
+        border-radius:16px;
+        padding:12px;
+      }
+      .title{font-size:17px}
+      .subtitle{font-size:13px}
+      .clock{
+        font-size:24px;
+        min-width:0;
+      }
+      .catalog{
+        grid-template-columns:1fr;
+        gap:14px;
+      }
+      .qr-title-badge{
+        width:min(100%, 250px);
+        font-size:15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo-box">
+          <img id="logoImg" src="" alt="MOSMEX"
+               onerror="this.style.display='none'; this.parentNode.innerHTML='MOSMEX'; this.parentNode.style.fontWeight='900'; this.parentNode.style.fontSize='11px'; this.parentNode.style.color='#64748b';">
+        </div>
+        <div class="brand-text">
+          <h1 class="title">MOSMEX | Catálogo de códigos QR</h1>
+          <div class="subtitle">Menú principal</div>
+        </div>
+      </div>
+
+      <div class="clock" id="clock">00:00:00</div>
+    </header>
+
+    <section class="toolbar">
+      <div class="search-wrap">
+        <div class="search-box">
+          <div class="search-icon">🔎</div>
+          <input id="searchInput" class="search-input" type="text" placeholder="Buscar: ej. Cizalla, Calidad..." autocomplete="off">
+          <button id="clearBtn" class="clear-btn" type="button">ESC limpia</button>
+        </div>
+      </div>
+
+      <div class="filters">
+        <button class="filter-btn active" data-filter="all"><span class="dot all"></span> Todas</button>
+        <button class="filter-btn" data-filter="planeado"><span class="dot planeado"></span> Cambios y Otros</button>
+        <button class="filter-btn" data-filter="mantenimiento"><span class="dot mantenimiento"></span> Fallas de Equipo</button>
+        <button class="filter-btn" data-filter="calidad"><span class="dot calidad"></span> Calidad</button>
+        <button class="filter-btn" data-filter="ingenieria"><span class="dot ingenieria"></span> Ingeniería</button>
+        <button class="filter-btn" data-filter="produccion"><span class="dot produccion"></span> Producción</button>
+        <button class="filter-btn" data-filter="ventas"><span class="dot ventas"></span> Ventas</button>
+        <button class="filter-btn" data-filter="sistema"><span class="dot sistema"></span> Sistema</button>
+        <button class="filter-btn" data-filter="embarques"><span class="dot embarques"></span> Embarques</button>
+        <button class="filter-btn" data-filter="logistica"><span class="dot logistica"></span> Logística</button>
+      </div>
+    </section>
+
+    <section class="status-row">
+      <div id="statusText">Mostrando 0 de 0 | Filtro: Todas | Búsqueda: —</div>
+    </section>
+
+    <section id="catalog" class="catalog"></section>
+    <div id="emptyState" class="empty">No se encontraron resultados.</div>
+  </div>
+
+  <script>
+    /* ==========================
+       CONFIGURACIÓN LOCAL
+       Estructura esperada:
+       /Buscador_local_img.html
+       /img/logo.png
+       /img/nombre-del-codigo.png
+       /img/nombre-del-codigo.jpg
+       ========================== */
+    const IMG_FOLDER = "img";
+    const LOGO_FILE = "logo.png";
+    const FAVORITES_KEY = "mosmex_qr_favoritos_v1";
+
+    function joinPath(folder, file){
+      const cleanFile = String(file || "").trim();
+      if(!folder) return cleanFile;
+      return folder.replace(/\/+$/, "") + "/" + cleanFile.replace(/^\/+/, "");
+    }
+
+    /* ==========================
+       LOGO
+       ========================== */
+    document.getElementById("logoImg").src = joinPath(IMG_FOLDER, LOGO_FILE);
+
+    /* ==========================
+       CATÁLOGO
+       Para los pendientes puedes dejar XXX.png.
+       Cuando tengas el JPG real:
+       1) ponlo en /img
+       2) cambia file: "XXX.png" por file: "Nombre real.jpg"
+       También intenta JPG/JPEG/PNG/WEBP si una extensión falla.
+       ========================== */
+    const qrData = [
+      {
+            "name": "Ajuste Claro por defecto",
+            "file": "Ajuste Claro por defecto.png",
+            "area": "Ingeniería",
+            "areaClass": "ingenieria",
+            "group": "Ingeniería"
+      },
+      {
+            "name": "Ajuste penetracion def.",
+            "file": "Ajuste penetracion def..png",
+            "area": "Ingeniería",
+            "areaClass": "ingenieria",
+            "group": "Ingeniería"
+      },
+      {
+            "name": "Almacen FG lleno",
+            "file": "Almacen FG lleno.png",
+            "area": "Embarques",
+            "areaClass": "embarques",
+            "group": "Embarques"
+      },
+      {
+            "name": "Avisos entre Turnos",
+            "file": "Avisos entre Turnos.png",
+            "area": "Planeado",
+            "areaClass": "planeado",
+            "group": "Cambios y Otros"
+      },
+      {
+            "name": "Basculas",
+            "file": "Basculas.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Cabezales",
+            "file": "Cabezales.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Cambio de ID (Attachment)",
+            "file": "Cambio de ID (Attachment).png",
+            "area": "Planeado",
+            "areaClass": "planeado",
+            "group": "Cambios y Otros"
+      },
+      {
+            "name": "Carro Entrada",
+            "file": "Carro Entrada.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Carro Salida",
+            "file": "Carro Salida.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Cizalla Entrada",
+            "file": "Cizalla Entrada.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Cizalla Salida",
+            "file": "Cizalla Salida.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Coil Connect",
+            "file": "Coil Connect.png",
+            "area": "Sistema",
+            "areaClass": "sistema",
+            "group": "Sistema"
+      },
+      {
+            "name": "Coilback",
+            "file": "Coilback.png",
+            "area": "Planeado",
+            "areaClass": "planeado",
+            "group": "Cambios y Otros"
+      },
+      {
+            "name": "Comida",
+            "file": "Comida.png",
+            "area": "Planeado",
+            "areaClass": "planeado",
+            "group": "Cambios y Otros"
+      },
+      {
+            "name": "Contenedor de Scrap",
+            "file": "Contenedor de Scrap.png",
+            "area": "Logística",
+            "areaClass": "logistica",
+            "group": "Logística"
+      },
+      {
+            "name": "Cruz Salida",
+            "file": "Cruz de Salida Llena.png",
+            "area": "Embarques",
+            "areaClass": "embarques",
+            "group": "Embarques"
+      },
+      {
+            "name": "cuchillas dañadas en proceso",
+            "file": "cuchillas dañadas en proceso.png",
+            "area": "Ingeniería",
+            "areaClass": "ingenieria",
+            "group": "Ingeniería"
+      },
+      {
+            "name": "Desenrollador",
+            "file": "Desenrollador.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Despuntes",
+            "file": "Despuntes.png",
+            "area": "Calidad",
+            "areaClass": "calidad",
+            "group": "Calidad"
+      },
+      {
+            "name": "Enrollador",
+            "file": "Enrollador.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Error de Proceso (Aut)",
+            "file": "Error de Proceso_Aut.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Error de Proceso (Man)",
+            "file": "Error de Proceso_Man.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Falla de Red",
+            "file": "Falla de Red.png",
+            "area": "Sistema",
+            "areaClass": "sistema",
+            "group": "Sistema"
+      },
+      {
+            "name": "Falta de electricidad",
+            "file": "Falla electrica.png",
+            "area": "Sistema",
+            "areaClass": "sistema",
+            "group": "Sistema"
+      },
+      {
+            "name": "Falta Personal",
+            "file": "Falta Personal.png",
+            "area": "Planeado",
+            "areaClass": "planeado",
+            "group": "Cambios y Otros"
+      },
+      {
+            "name": "Grua Entrada",
+            "file": "Grua Entrada.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Grua Salida",
+            "file": "Grua Salida.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Inspeccion de Marial",
+            "file": "Inspeccion de Marial.png",
+            "area": "Calidad",
+            "areaClass": "calidad",
+            "group": "Calidad"
+      },
+      {
+            "name": "Instrumentos de medicion",
+            "file": "Instrumentos de medicion.png",
+            "area": "Calidad",
+            "areaClass": "calidad",
+            "group": "Calidad"
+      },
+      {
+            "name": "Junta Excede t. Estandar",
+            "file": "Junta Excede t. Estandar.png",
+            "area": "Planeado",
+            "areaClass": "planeado",
+            "group": "Cambios y Otros"
+      },
+      {
+            "name": "Mesa Loop",
+            "file": "Mesa Loop.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Proc. Cut/Descarga",
+            "file": "Proc. Cut.png",
+            "area": "Planeado",
+            "areaClass": "planeado",
+            "group": "Cambios y Otros"
+      },
+      {
+            "name": "Pruebas y proyectos",
+            "file": "Pruebas y proyectos.png",
+            "area": "Planeado",
+            "areaClass": "planeado",
+            "group": "Cambios y Otros"
+      },
+      {
+            "name": "Rollo Dañado en Proceso",
+            "file": "Rollo Danado en Proceso.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Embobinadores de Scrap",
+            "file": "Scrap Winders.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Separadores 1",
+            "file": "Separadores.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Separadores 2",
+            "file": "Separadores.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Separadores 3",
+            "file": "Separadores.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Detener Paro",
+            "file": "Detener_Paro.png",
+            "areaClass": "produccion",
+            "area": "Producción",
+            "group": "Producción"
+      },
+      {
+            "name": "Problemas con desorilla",
+            "file": "Problemas con desorilla.png",
+            "areaClass": "mantenimiento",
+            "area": "Mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Tension Pad",
+            "file": "Tension Pad.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Excede tiempo de colocacion en gomas",
+            "file": "Excede_tiempo_gomas.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Material Urgente",
+            "file": "Material_urgente.png",
+            "area": "Ventas",
+            "areaClass": "ventas",
+            "group": "Ventas"
+      },
+      {
+            "name": "Ajuste de Proc. Direc",
+            "file": "Ajuste_pro_direc.png",
+            "area": "Ventas",
+            "areaClass": "ventas",
+            "group": "Ventas"
+      },
+      {
+            "name": "Falta de programa de producción",
+            "file": "Falta_programa_pro.png",
+            "area": "Ventas",
+            "areaClass": "ventas",
+            "group": "Ventas"
+      },
+      {
+            "name": "Linea de Empaque",
+            "file": "Linea_de_empaque.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Equipos Auxiliares",
+            "file": "equipos_aux.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Atoramiento de Cintas enrollador",
+            "file": "Atoramiento_cinta.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Carro CoilBack",
+            "file": "Carro_coilB.png",
+            "area": "Mantenimiento",
+            "areaClass": "mantenimiento",
+            "group": "Fallas de Equipo"
+      },
+      {
+            "name": "Tiempo Excedido de Armado de Cabezal",
+            "file": "Tiempo_excede_armado.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Manejo de Wips",
+            "file": "Manejo_wips.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Colocacion de Gomas ID",
+            "file": "Colocacion_gomas_ID.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Vaciado Carro de despunte",
+            "file": "Vaciar_carro_despuntes.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Comida tiempo Extra",
+            "file": "Comida_extra.png",
+            "area": "Producción",
+            "areaClass": "produccion",
+            "group": "Producción"
+      },
+      {
+            "name": "Reinspección rollo origen",
+            "file": "Reinspeccion_origen.png",
+            "area": "Calidad",
+            "areaClass": "calidad",
+            "group": "Calidad"
+      },
+      {
+            "name": "Reinspección rollo Proceso",
+            "file": "Reinspeccion_proceso.png",
+            "area": "Calidad",
+            "areaClass": "calidad",
+            "group": "Calidad"
+      },
+      {
+            "name": "Muestreos",
+            "file": "Muestreo.png",
+            "area": "Calidad",
+            "areaClass": "calidad",
+            "group": "Calidad"
+      }
+];
+
+    const catalog = document.getElementById("catalog");
+    const searchInput = document.getElementById("searchInput");
+    const clearBtn = document.getElementById("clearBtn");
+    const statusText = document.getElementById("statusText");
+    const emptyState = document.getElementById("emptyState");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+
+    let activeFilter = "all";
+    let favoriteIds = loadFavorites();
+
+    function loadFavorites(){
+      try{
+        return new Set(JSON.parse(localStorage.getItem(FAVORITES_KEY) || "[]"));
+      }catch(_err){
+        return new Set();
+      }
+    }
+
+    function saveFavorites(){
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify([...favoriteIds]));
+    }
+
+    function makeItemId(item){
+      return String(item.id || item.name || item.file || "")
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function normalizeItem(item, index){
+      const normalized = {
+        ...item,
+        area: item.area || item.group || "Sin área",
+        group: item.group || item.area || "Sin grupo",
+        areaClass: String(item.areaClass || "sistema").toLowerCase(),
+        _index: index
+      };
+      normalized._id = makeItemId(normalized);
+      normalized._favorite = favoriteIds.has(normalized._id);
+      return normalized;
+    }
+
+    function toggleFavorite(id){
+      if(favoriteIds.has(id)){
+        favoriteIds.delete(id);
+      }else{
+        favoriteIds.add(id);
+      }
+      saveFavorites();
+      render();
+    }
+
+    function escapeHtml(text){
+      return String(text ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+    }
+
+    function escapeSvg(text){
+      return String(text ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;");
+    }
+
+    function highlight(text, query){
+      if(!query) return escapeHtml(text);
+      const safe = escapeHtml(text);
+      const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const rx = new RegExp("(" + escaped + ")", "ig");
+      return safe.replace(rx, "<mark>$1</mark>");
+    }
+
+    function filterMatch(item){
+      if(activeFilter === "all") return true;
+      return item.areaClass === activeFilter;
+    }
+
+    function searchMatch(item, q){
+      if(!q) return true;
+      const text = `${item.name} ${item.area} ${item.group}`.toLowerCase();
+      return text.includes(q.toLowerCase());
+    }
+
+    function getQrImageCandidates(fileName, itemName){
+      const candidates = [];
+      const add = (file) => {
+        const cleanFile = String(file || "").trim();
+        if(!cleanFile) return;
+        const path = joinPath(IMG_FOLDER, cleanFile);
+        if(!candidates.includes(path)) candidates.push(path);
+      };
+
+      const cleanFile = String(fileName || "").trim();
+      const lower = cleanFile.toLowerCase();
+
+      if(cleanFile) add(cleanFile);
+
+      if(cleanFile){
+        const extMatch = cleanFile.match(/\.[a-z0-9]+$/i);
+        const base = extMatch ? cleanFile.slice(0, -extMatch[0].length) : cleanFile;
+        ["jpg", "jpeg", "png", "webp"].forEach(ext => add(`${base}.${ext}`));
+      }
+
+      if(!cleanFile || lower.includes("xxx")){
+        const nameBase = String(itemName || "").trim();
+        ["jpg", "jpeg", "png", "webp"].forEach(ext => add(`${nameBase}.${ext}`));
+        ["XXX.jpg", "xxx.jpg", "XXX.jpeg", "xxx.jpeg", "XXX.png", "xxx.png"].forEach(add);
+      }
+
+      return candidates;
+    }
+
+    function pendingImageSvg(label){
+      const safeLabel = escapeSvg(label);
+      const svg = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="420" height="420" viewBox="0 0 420 420">
+          <rect width="100%" height="100%" fill="white"/>
+          <rect x="20" y="20" width="380" height="380" rx="22" fill="none" stroke="#cbd5e1" stroke-width="8" stroke-dasharray="14 10"/>
+          <text x="50%" y="42%" text-anchor="middle" font-family="Arial" font-size="28" font-weight="700" fill="#1f497d">QR pendiente</text>
+          <text x="50%" y="52%" text-anchor="middle" font-family="Arial" font-size="16" font-weight="700" fill="#64748b">${safeLabel}</text>
+          <text x="50%" y="60%" text-anchor="middle" font-family="Arial" font-size="14" fill="#94a3b8">Coloca JPG/PNG en carpeta img</text>
+        </svg>
+      `;
+      return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
+    }
+
+    function applyImageFallback(img, candidates, itemName){
+      let index = 0;
+
+      function tryNext(){
+        if(index < candidates.length){
+          img.src = candidates[index];
+          index += 1;
+        }else{
+          img.onerror = null;
+          img.src = pendingImageSvg(itemName);
+        }
+      }
+
+      img.onerror = tryNext;
+      tryNext();
+    }
+
+    function render(){
+      const query = searchInput.value.trim();
+
+      const prepared = qrData.map(normalizeItem);
+      const filtered = prepared
+        .filter(item => filterMatch(item) && searchMatch(item, query))
+        .sort((a, b) => {
+          if(a._favorite !== b._favorite) return a._favorite ? -1 : 1;
+          return a._index - b._index;
+        });
+
+      catalog.innerHTML = "";
+
+      filtered.forEach(item => {
+        const candidates = getQrImageCandidates(item.file, item.name);
+        const firstPath = candidates[0] || "Sin ruta";
+
+        const card = document.createElement("article");
+        card.className = `card area-${item.areaClass}${item._favorite ? " favorite" : ""}`;
+        card.innerHTML = `
+          <div class="card-inner">
+            <button class="favorite-btn ${item._favorite ? "active" : ""}"
+                    type="button"
+                    data-fav-id="${escapeHtml(item._id)}"
+                    title="${item._favorite ? "Quitar de favoritos" : "Agregar a favoritos"}"
+                    aria-label="${item._favorite ? "Quitar de favoritos" : "Agregar a favoritos"}">
+              ${item._favorite ? "★" : "☆"}
+            </button>
+            <div class="qr-head">
+              <div class="qr-title-badge">${escapeHtml(item.name)}</div>
+            </div>
+            <div class="qr-box">
+              <img data-role="qr-img" alt="${escapeHtml(item.name)}">
+            </div>
+          </div>
+          <div class="meta ${query ? "match" : ""}">
+            <div class="pill">
+              <span class="dot ${item.areaClass}"></span>
+              ${escapeHtml(item.group)}
+            </div>
+            <h3 class="card-title">${highlight(item.name, query)}</h3>
+            <div class="card-sub">${escapeHtml(item.group)}</div>
+            <div class="img-path">img: ${escapeHtml(firstPath)}</div>
+          </div>
+        `;
+
+        catalog.appendChild(card);
+
+        const img = card.querySelector('img[data-role="qr-img"]');
+        applyImageFallback(img, candidates, item.name);
+      });
+
+      const filterNameMap = {
+        all: "Todas",
+        planeado: "Cambios y Otros",
+        mantenimiento: "Fallas de Equipo",
+        calidad: "Calidad",
+        ingenieria: "Ingeniería",
+        produccion: "Producción",
+        ventas: "Ventas",
+        sistema: "Sistema",
+        embarques: "Embarques",
+        logistica: "Logística"
+      };
+
+      const favoriteCount = prepared.filter(item => item._favorite).length;
+
+      statusText.textContent =
+        `Mostrando ${filtered.length} de ${qrData.length} | Filtro: ${filterNameMap[activeFilter] || activeFilter} | Búsqueda: ${query || "—"} | Favoritos: ${favoriteCount}`;
+
+      emptyState.style.display = filtered.length ? "none" : "block";
+    }
+
+    catalog.addEventListener("click", (e) => {
+      const favBtn = e.target.closest(".favorite-btn");
+      if(!favBtn) return;
+      e.stopPropagation();
+      toggleFavorite(favBtn.dataset.favId);
+    });
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        activeFilter = btn.dataset.filter;
+        render();
+      });
+    });
+
+    searchInput.addEventListener("input", render);
+
+    clearBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      render();
+      searchInput.focus();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        searchInput.value = "";
+        render();
+      }
+    });
+
+    function updateClock(){
+      const now = new Date();
+      const hh = String(now.getHours()).padStart(2,"0");
+      const mm = String(now.getMinutes()).padStart(2,"0");
+      const ss = String(now.getSeconds()).padStart(2,"0");
+      document.getElementById("clock").textContent = `${hh}:${mm}:${ss}`;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+    render();
+
+  </script>
+</body>
+</html>
