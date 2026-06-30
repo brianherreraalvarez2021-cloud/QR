@@ -13,19 +13,9 @@
       --text:#1f2937;
       --muted:#6b7280;
       --navy:#1f497d;
-      --blue:#3b82f6;
+      --accent:#1f497d;
+      --accent-soft:#eef5ff;
       --shadow:0 10px 24px rgba(15, 23, 42, .06);
-
-      --ingenieria:#8e44ad;
-      --calidad:#22c55e;
-      --planeado:#3b82f6;
-      --mantenimiento:#f59e0b;
-      --produccion:#ef4444;
-      --sistema:#64748b;
-      --embarques:#14b8a6;
-      --logistica:#94a3b8;
-      --ventas:#0ea5e9;
-
       --badge-red:#b02b45;
       --mark-bg:#fff0a8;
     }
@@ -125,7 +115,7 @@
 
     .search-wrap{
       flex:1 1 420px;
-      max-width:520px;
+      max-width:620px;
       position:relative;
     }
 
@@ -177,52 +167,6 @@
 
     .clear-btn:hover{background:#eef3f9}
 
-    .filters{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-
-    .filter-btn{
-      border:1px solid var(--line);
-      background:var(--panel);
-      color:#1f2937;
-      border-radius:999px;
-      padding:10px 16px;
-      font-size:14px;
-      font-weight:800;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      box-shadow:var(--shadow);
-    }
-
-    .filter-btn.active{
-      border-color:#9bb7e8;
-      background:#f8fbff;
-    }
-
-    .dot{
-      width:11px;
-      height:11px;
-      border-radius:50%;
-      display:inline-block;
-      flex:0 0 11px;
-    }
-
-    .dot.all{background:#94a3b8}
-    .dot.ingenieria{background:var(--ingenieria)}
-    .dot.calidad{background:var(--calidad)}
-    .dot.planeado{background:var(--planeado)}
-    .dot.mantenimiento{background:var(--mantenimiento)}
-    .dot.produccion{background:var(--produccion)}
-    .dot.sistema{background:var(--sistema)}
-    .dot.embarques{background:var(--embarques)}
-    .dot.logistica{background:var(--logistica)}
-    .dot.ventas{background:var(--ventas)}
-
     .status-row{
       display:flex;
       align-items:center;
@@ -244,11 +188,11 @@
     .card{
       background:var(--panel);
       border:1px solid #dfe6f0;
+      border-left:6px solid var(--accent);
       border-radius:22px;
       overflow:hidden;
       box-shadow:var(--shadow);
       transition:.18s ease;
-      border-left:6px solid var(--planeado);
     }
 
     .card:hover{
@@ -295,7 +239,6 @@
       border-color:#f59e0b;
     }
 
-
     .qr-head{
       display:flex;
       justify-content:center;
@@ -323,13 +266,6 @@
       hyphens:none;
     }
 
-    .qr-title-badge mark{
-      background:transparent;
-      color:inherit;
-      padding:0;
-      border-radius:0;
-    }
-
     .qr-box{
       width:100%;
       display:flex;
@@ -352,22 +288,8 @@
       padding:14px 14px 16px;
     }
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:9px;
-      border:1px solid #d4dce8;
-      background:#f8fafc;
-      color:#334155;
-      border-radius:999px;
-      padding:8px 12px;
-      font-size:13px;
-      font-weight:800;
-      margin-bottom:12px;
-    }
-
     .card-title{
-      margin:0 0 6px;
+      margin:0 0 10px;
       font-size:18px;
       font-weight:900;
       color:#111827;
@@ -375,12 +297,6 @@
       min-height:44px;
       word-break:normal;
       overflow-wrap:break-word;
-    }
-
-    .card-sub{
-      color:#64748b;
-      font-size:14px;
-      font-weight:700;
     }
 
     .img-path{
@@ -417,16 +333,6 @@
       padding:0 .12em;
     }
 
-    .card.area-ingenieria{border-left-color:var(--ingenieria)}
-    .card.area-calidad{border-left-color:var(--calidad)}
-    .card.area-planeado{border-left-color:var(--planeado)}
-    .card.area-mantenimiento{border-left-color:var(--mantenimiento)}
-    .card.area-produccion{border-left-color:var(--produccion)}
-    .card.area-sistema{border-left-color:var(--sistema)}
-    .card.area-embarques{border-left-color:var(--embarques)}
-    .card.area-logistica{border-left-color:var(--logistica)}
-    .card.area-ventas{border-left-color:var(--ventas)}
-
     @media (max-width:900px){
       .topbar{
         flex-direction:column;
@@ -441,9 +347,6 @@
       }
       .search-wrap{
         max-width:none;
-      }
-      .filters{
-        width:100%;
       }
     }
 
@@ -494,27 +397,14 @@
       <div class="search-wrap">
         <div class="search-box">
           <div class="search-icon">🔎</div>
-          <input id="searchInput" class="search-input" type="text" placeholder="Buscar: ej. Cizalla, Calidad..." autocomplete="off">
+          <input id="searchInput" class="search-input" type="text" placeholder="Buscar código QR..." autocomplete="off">
           <button id="clearBtn" class="clear-btn" type="button">ESC limpia</button>
         </div>
-      </div>
-
-      <div class="filters">
-        <button class="filter-btn active" data-filter="all"><span class="dot all"></span> Todas</button>
-        <button class="filter-btn" data-filter="planeado"><span class="dot planeado"></span> Cambios y Otros</button>
-        <button class="filter-btn" data-filter="mantenimiento"><span class="dot mantenimiento"></span> Fallas de Equipo</button>
-        <button class="filter-btn" data-filter="calidad"><span class="dot calidad"></span> Calidad</button>
-        <button class="filter-btn" data-filter="ingenieria"><span class="dot ingenieria"></span> Ingeniería</button>
-        <button class="filter-btn" data-filter="produccion"><span class="dot produccion"></span> Producción</button>
-        <button class="filter-btn" data-filter="ventas"><span class="dot ventas"></span> Ventas</button>
-        <button class="filter-btn" data-filter="sistema"><span class="dot sistema"></span> Sistema</button>
-        <button class="filter-btn" data-filter="embarques"><span class="dot embarques"></span> Embarques</button>
-        <button class="filter-btn" data-filter="logistica"><span class="dot logistica"></span> Logística</button>
       </div>
     </section>
 
     <section class="status-row">
-      <div id="statusText">Mostrando 0 de 0 | Filtro: Todas | Búsqueda: —</div>
+      <div id="statusText">Mostrando 0 de 0 | Búsqueda: — | Favoritos: 0</div>
     </section>
 
     <section id="catalog" class="catalog"></section>
@@ -525,7 +415,7 @@
     /* ==========================
        CONFIGURACIÓN LOCAL
        Estructura esperada:
-       /Buscador_local_img.html
+       /index.html
        /img/logo.png
        /img/nombre-del-codigo.png
        /img/nombre-del-codigo.jpg
@@ -540,418 +430,236 @@
       return folder.replace(/\/+$/, "") + "/" + cleanFile.replace(/^\/+/, "");
     }
 
-    /* ==========================
-       LOGO
-       ========================== */
     document.getElementById("logoImg").src = joinPath(IMG_FOLDER, LOGO_FILE);
 
-    /* ==========================
-       CATÁLOGO
-       Para los pendientes puedes dejar XXX.png.
-       Cuando tengas el JPG real:
-       1) ponlo en /img
-       2) cambia file: "XXX.png" por file: "Nombre real.jpg"
-       También intenta JPG/JPEG/PNG/WEBP si una extensión falla.
-       ========================== */
     const qrData = [
       {
             "name": "Ajuste Claro por defecto",
-            "file": "Ajuste Claro por defecto.png",
-            "area": "Ingeniería",
-            "areaClass": "ingenieria",
-            "group": "Ingeniería"
+            "file": "Ajuste Claro por defecto.png"
       },
       {
             "name": "Ajuste penetracion def.",
-            "file": "Ajuste penetracion def..png",
-            "area": "Ingeniería",
-            "areaClass": "ingenieria",
-            "group": "Ingeniería"
+            "file": "Ajuste penetracion def..png"
       },
       {
             "name": "Almacen FG lleno",
-            "file": "Almacen FG lleno.png",
-            "area": "Embarques",
-            "areaClass": "embarques",
-            "group": "Embarques"
+            "file": "Almacen FG lleno.png"
       },
       {
             "name": "Avisos entre Turnos",
-            "file": "Avisos entre Turnos.png",
-            "area": "Planeado",
-            "areaClass": "planeado",
-            "group": "Cambios y Otros"
+            "file": "Avisos entre Turnos.png"
       },
       {
             "name": "Basculas",
-            "file": "Basculas.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Basculas.png"
       },
       {
             "name": "Cabezales",
-            "file": "Cabezales.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Cabezales.png"
       },
       {
             "name": "Cambio de ID (Attachment)",
-            "file": "Cambio de ID (Attachment).png",
-            "area": "Planeado",
-            "areaClass": "planeado",
-            "group": "Cambios y Otros"
+            "file": "Cambio de ID (Attachment).png"
       },
       {
             "name": "Carro Entrada",
-            "file": "Carro Entrada.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Carro Entrada.png"
       },
       {
             "name": "Carro Salida",
-            "file": "Carro Salida.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Carro Salida.png"
       },
       {
             "name": "Cizalla Entrada",
-            "file": "Cizalla Entrada.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Cizalla Entrada.png"
       },
       {
             "name": "Cizalla Salida",
-            "file": "Cizalla Salida.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Cizalla Salida.png"
       },
       {
             "name": "Coil Connect",
-            "file": "Coil Connect.png",
-            "area": "Sistema",
-            "areaClass": "sistema",
-            "group": "Sistema"
+            "file": "Coil Connect.png"
       },
       {
             "name": "Coilback",
-            "file": "Coilback.png",
-            "area": "Planeado",
-            "areaClass": "planeado",
-            "group": "Cambios y Otros"
+            "file": "Coilback.png"
       },
       {
             "name": "Comida",
-            "file": "Comida.png",
-            "area": "Planeado",
-            "areaClass": "planeado",
-            "group": "Cambios y Otros"
+            "file": "Comida.png"
       },
       {
             "name": "Contenedor de Scrap",
-            "file": "Contenedor de Scrap.png",
-            "area": "Logística",
-            "areaClass": "logistica",
-            "group": "Logística"
+            "file": "Contenedor de Scrap.png"
       },
       {
             "name": "Cruz Salida",
-            "file": "Cruz de Salida Llena.png",
-            "area": "Embarques",
-            "areaClass": "embarques",
-            "group": "Embarques"
+            "file": "Cruz de Salida Llena.png"
       },
       {
             "name": "cuchillas dañadas en proceso",
-            "file": "cuchillas dañadas en proceso.png",
-            "area": "Ingeniería",
-            "areaClass": "ingenieria",
-            "group": "Ingeniería"
+            "file": "cuchillas dañadas en proceso.png"
       },
       {
             "name": "Desenrollador",
-            "file": "Desenrollador.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Desenrollador.png"
       },
       {
             "name": "Despuntes",
-            "file": "Despuntes.png",
-            "area": "Calidad",
-            "areaClass": "calidad",
-            "group": "Calidad"
+            "file": "Despuntes.png"
       },
       {
             "name": "Enrollador",
-            "file": "Enrollador.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Enrollador.png"
       },
       {
             "name": "Error de Proceso (Aut)",
-            "file": "Error de Proceso_Aut.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Error de Proceso_Aut.png"
       },
       {
             "name": "Error de Proceso (Man)",
-            "file": "Error de Proceso_Man.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Error de Proceso_Man.png"
       },
       {
             "name": "Falla de Red",
-            "file": "Falla de Red.png",
-            "area": "Sistema",
-            "areaClass": "sistema",
-            "group": "Sistema"
+            "file": "Falla de Red.png"
       },
       {
             "name": "Falta de electricidad",
-            "file": "Falla electrica.png",
-            "area": "Sistema",
-            "areaClass": "sistema",
-            "group": "Sistema"
+            "file": "Falla electrica.png"
       },
       {
             "name": "Falta Personal",
-            "file": "Falta Personal.png",
-            "area": "Planeado",
-            "areaClass": "planeado",
-            "group": "Cambios y Otros"
+            "file": "Falta Personal.png"
       },
       {
             "name": "Grua Entrada",
-            "file": "Grua Entrada.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Grua Entrada.png"
       },
       {
             "name": "Grua Salida",
-            "file": "Grua Salida.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Grua Salida.png"
       },
       {
             "name": "Inspeccion de Marial",
-            "file": "Inspeccion de Marial.png",
-            "area": "Calidad",
-            "areaClass": "calidad",
-            "group": "Calidad"
+            "file": "Inspeccion de Marial.png"
       },
       {
             "name": "Instrumentos de medicion",
-            "file": "Instrumentos de medicion.png",
-            "area": "Calidad",
-            "areaClass": "calidad",
-            "group": "Calidad"
+            "file": "Instrumentos de medicion.png"
       },
       {
             "name": "Junta Excede t. Estandar",
-            "file": "Junta Excede t. Estandar.png",
-            "area": "Planeado",
-            "areaClass": "planeado",
-            "group": "Cambios y Otros"
+            "file": "Junta Excede t. Estandar.png"
       },
       {
             "name": "Mesa Loop",
-            "file": "Mesa Loop.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Mesa Loop.png"
       },
       {
             "name": "Proc. Cut/Descarga",
-            "file": "Proc. Cut.png",
-            "area": "Planeado",
-            "areaClass": "planeado",
-            "group": "Cambios y Otros"
+            "file": "Proc. Cut.png"
       },
       {
             "name": "Pruebas y proyectos",
-            "file": "Pruebas y proyectos.png",
-            "area": "Planeado",
-            "areaClass": "planeado",
-            "group": "Cambios y Otros"
+            "file": "Pruebas y proyectos.png"
       },
       {
             "name": "Rollo Dañado en Proceso",
-            "file": "Rollo Danado en Proceso.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Rollo Danado en Proceso.png"
       },
       {
             "name": "Embobinadores de Scrap",
-            "file": "Scrap Winders.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Scrap Winders.png"
       },
       {
             "name": "Separadores 1",
-            "file": "Separadores.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Separadores.png"
       },
       {
             "name": "Separadores 2",
-            "file": "Separadores.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Separadores.png"
       },
       {
             "name": "Separadores 3",
-            "file": "Separadores.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Separadores.png"
       },
       {
             "name": "Detener Paro",
-            "file": "Detener_Paro.png",
-            "areaClass": "produccion",
-            "area": "Producción",
-            "group": "Producción"
+            "file": "Detener_Paro.png"
       },
       {
             "name": "Problemas con desorilla",
-            "file": "Problemas con desorilla.png",
-            "areaClass": "mantenimiento",
-            "area": "Mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Problemas con desorilla.png"
       },
       {
             "name": "Tension Pad",
-            "file": "Tension Pad.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Tension Pad.png"
       },
       {
             "name": "Excede tiempo de colocacion en gomas",
-            "file": "Excede_tiempo_gomas.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Excede_tiempo_gomas.png"
       },
       {
             "name": "Material Urgente",
-            "file": "Material_urgente.png",
-            "area": "Ventas",
-            "areaClass": "ventas",
-            "group": "Ventas"
+            "file": "Material_urgente.png"
       },
       {
             "name": "Ajuste de Proc. Direc",
-            "file": "Ajuste_pro_direc.png",
-            "area": "Ventas",
-            "areaClass": "ventas",
-            "group": "Ventas"
+            "file": "Ajuste_pro_direc.png"
       },
       {
             "name": "Falta de programa de producción",
-            "file": "Falta_programa_pro.png",
-            "area": "Ventas",
-            "areaClass": "ventas",
-            "group": "Ventas"
+            "file": "Falta_programa_pro.png"
       },
       {
             "name": "Linea de Empaque",
-            "file": "Linea_de_empaque.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Linea_de_empaque.png"
       },
       {
             "name": "Equipos Auxiliares",
-            "file": "equipos_aux.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "equipos_aux.png"
       },
       {
             "name": "Atoramiento de Cintas enrollador",
-            "file": "Atoramiento_cinta.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Atoramiento_cinta.png"
       },
       {
             "name": "Carro CoilBack",
-            "file": "Carro_coilB.png",
-            "area": "Mantenimiento",
-            "areaClass": "mantenimiento",
-            "group": "Fallas de Equipo"
+            "file": "Carro_coilB.png"
       },
       {
             "name": "Tiempo Excedido de Armado de Cabezal",
-            "file": "Tiempo_excede_armado.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Tiempo_excede_armado.png"
       },
       {
             "name": "Manejo de Wips",
-            "file": "Manejo_wips.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Manejo_wips.png"
       },
       {
             "name": "Colocacion de Gomas ID",
-            "file": "Colocacion_gomas_ID.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Colocacion_gomas_ID.png"
       },
       {
             "name": "Vaciado Carro de despunte",
-            "file": "Vaciar_carro_despuntes.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Vaciar_carro_despuntes.png"
       },
       {
             "name": "Comida tiempo Extra",
-            "file": "Comida_extra.png",
-            "area": "Producción",
-            "areaClass": "produccion",
-            "group": "Producción"
+            "file": "Comida_extra.png"
       },
       {
             "name": "Reinspección rollo origen",
-            "file": "Reinspeccion_origen.png",
-            "area": "Calidad",
-            "areaClass": "calidad",
-            "group": "Calidad"
+            "file": "Reinspeccion_origen.png"
       },
       {
             "name": "Reinspección rollo Proceso",
-            "file": "Reinspeccion_proceso.png",
-            "area": "Calidad",
-            "areaClass": "calidad",
-            "group": "Calidad"
+            "file": "Reinspeccion_proceso.png"
       },
       {
             "name": "Muestreos",
-            "file": "Muestreo.png",
-            "area": "Calidad",
-            "areaClass": "calidad",
-            "group": "Calidad"
+            "file": "Muestreo.png"
       }
 ];
 
@@ -960,9 +668,7 @@
     const clearBtn = document.getElementById("clearBtn");
     const statusText = document.getElementById("statusText");
     const emptyState = document.getElementById("emptyState");
-    const filterButtons = document.querySelectorAll(".filter-btn");
 
-    let activeFilter = "all";
     let favoriteIds = loadFavorites();
 
     function loadFavorites(){
@@ -982,7 +688,7 @@
         .trim()
         .toLowerCase()
         .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[̀-ͯ]/g, "")
         .replace(/[^a-z0-9]+/g, "-")
         .replace(/^-+|-+$/g, "");
     }
@@ -990,9 +696,6 @@
     function normalizeItem(item, index){
       const normalized = {
         ...item,
-        area: item.area || item.group || "Sin área",
-        group: item.group || item.area || "Sin grupo",
-        areaClass: String(item.areaClass || "sistema").toLowerCase(),
         _index: index
       };
       normalized._id = makeItemId(normalized);
@@ -1035,14 +738,9 @@
       return safe.replace(rx, "<mark>$1</mark>");
     }
 
-    function filterMatch(item){
-      if(activeFilter === "all") return true;
-      return item.areaClass === activeFilter;
-    }
-
     function searchMatch(item, q){
       if(!q) return true;
-      const text = `${item.name} ${item.area} ${item.group}`.toLowerCase();
+      const text = `${item.name} ${item.file}`.toLowerCase();
       return text.includes(q.toLowerCase());
     }
 
@@ -1111,7 +809,7 @@
 
       const prepared = qrData.map(normalizeItem);
       const filtered = prepared
-        .filter(item => filterMatch(item) && searchMatch(item, query))
+        .filter(item => searchMatch(item, query))
         .sort((a, b) => {
           if(a._favorite !== b._favorite) return a._favorite ? -1 : 1;
           return a._index - b._index;
@@ -1124,7 +822,7 @@
         const firstPath = candidates[0] || "Sin ruta";
 
         const card = document.createElement("article");
-        card.className = `card area-${item.areaClass}${item._favorite ? " favorite" : ""}`;
+        card.className = `card${item._favorite ? " favorite" : ""}`;
         card.innerHTML = `
           <div class="card-inner">
             <button class="favorite-btn ${item._favorite ? "active" : ""}"
@@ -1142,12 +840,7 @@
             </div>
           </div>
           <div class="meta ${query ? "match" : ""}">
-            <div class="pill">
-              <span class="dot ${item.areaClass}"></span>
-              ${escapeHtml(item.group)}
-            </div>
             <h3 class="card-title">${highlight(item.name, query)}</h3>
-            <div class="card-sub">${escapeHtml(item.group)}</div>
             <div class="img-path">img: ${escapeHtml(firstPath)}</div>
           </div>
         `;
@@ -1158,24 +851,8 @@
         applyImageFallback(img, candidates, item.name);
       });
 
-      const filterNameMap = {
-        all: "Todas",
-        planeado: "Cambios y Otros",
-        mantenimiento: "Fallas de Equipo",
-        calidad: "Calidad",
-        ingenieria: "Ingeniería",
-        produccion: "Producción",
-        ventas: "Ventas",
-        sistema: "Sistema",
-        embarques: "Embarques",
-        logistica: "Logística"
-      };
-
       const favoriteCount = prepared.filter(item => item._favorite).length;
-
-      statusText.textContent =
-        `Mostrando ${filtered.length} de ${qrData.length} | Filtro: ${filterNameMap[activeFilter] || activeFilter} | Búsqueda: ${query || "—"} | Favoritos: ${favoriteCount}`;
-
+      statusText.textContent = `Mostrando ${filtered.length} de ${qrData.length} | Búsqueda: ${query || "—"} | Favoritos: ${favoriteCount}`;
       emptyState.style.display = filtered.length ? "none" : "block";
     }
 
@@ -1184,15 +861,6 @@
       if(!favBtn) return;
       e.stopPropagation();
       toggleFavorite(favBtn.dataset.favId);
-    });
-
-    filterButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        filterButtons.forEach(b => b.classList.remove("active"));
-        btn.classList.add("active");
-        activeFilter = btn.dataset.filter;
-        render();
-      });
     });
 
     searchInput.addEventListener("input", render);
@@ -1221,7 +889,6 @@
     updateClock();
     setInterval(updateClock, 1000);
     render();
-
   </script>
 </body>
 </html>
